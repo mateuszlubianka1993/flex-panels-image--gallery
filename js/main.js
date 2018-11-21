@@ -1,11 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const $inputs = document.querySelectorAll('.controls input');
+    const $panels = document.querySelectorAll('.panel');
     
-    function update() {
-        const suffix = this.dataset.sizing || "";
-        document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
-    }
+    function toggleOpen() {
+        this.classList.toggle('open');
+    };
     
-    $inputs.forEach($input => $input.addEventListener('change', update));
-    $inputs.forEach($input => $input.addEventListener('mousemove', update));
+    function toggleActive(e) {
+        if(e.propertyName.includes('flex')) {
+            this.classList.toggle('open-active');
+        }
+    };
+    
+    $panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    $panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
 });
